@@ -1,0 +1,31 @@
+name: Deploy hrml frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            set -e
+            cd /home/purushotam/HRMS/vedhrms_frontend
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            cd /home/purushotam/HRMS
+            docker compose build frontend
+            docker compose up -d frontend
+
+            docker image prune -f

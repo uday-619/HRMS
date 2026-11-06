@@ -1,0 +1,318 @@
+/* Sidebar shell */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar-collapsed {
+  width: 110px;
+}
+
+/* Header */
+.sidebar-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  min-height: 64px;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.sidebar-collapsed .sidebar-header {
+  justify-content: space-between;
+}
+
+/* ── LOGO FIX ── */
+
+/* Full logo — visible only when sidebar is expanded */
+.sidebar-header .logo-full {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+  flex: 1;
+  min-width: 0;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-collapsed .sidebar-header .logo-full {
+  display: none;
+}
+
+/* Icon/favicon logo — visible only when sidebar is collapsed */
+.sidebar-header .logo-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: none;
+}
+
+.sidebar-collapsed .sidebar-header .logo-icon {
+  display: block;
+}
+
+/* ── END LOGO FIX ── */
+
+/* Collapse button */
+.collapse-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapse-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Menu container — scrolls but scrollbar is invisible */
+.menu-container {
+  flex: 1;
+  padding: 8px 0;
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.menu-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Menu item */
+.menu-item {
+  position: relative;
+}
+
+/* Menu link */
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  color: #374151;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.menu-link:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* Left group */
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-left-collapsed {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+/* Icon */
+.menu-icon {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Label */
+.menu-label {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.menu-label-collapsed {
+  font-size: 10px;
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Active — top-level only */
+.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Arrow */
+.menu-arrow {
+  transition: 0.3s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* ── Submenu (expanded, sidebar open) ── */
+
+.submenu {
+  margin: 0 12px 10px 58px;
+  padding-left: 0;
+  position: relative;
+}
+
+/* Vertical timeline line */
+.submenu::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+/* Submenu link */
+.submenu-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px 12px 10px 28px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #64748b;
+  transition: all 0.25s ease;
+}
+
+/* Round node */
+.submenu-link::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Curved connector */
+.submenu-link::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  width: 16px;
+  height: 14px;
+  border-left: 2px solid #e2e8f0;
+  border-bottom: 2px solid #e2e8f0;
+  border-radius: 0 0 0 8px;
+}
+
+/* Hover effect */
+.submenu-link:hover {
+  color: #0f172a;
+  transform: translateX(3px);
+}
+
+/* Active submenu */
+.submenu-link.active {
+  color: #2563eb;
+  font-weight: 600;
+  background: #eff6ff;
+  border-radius: 6px;
+}
+
+.submenu-link.active::before {
+  background: #2563eb;
+  width: 8px;
+  height: 8px;
+  left: -4px;
+}
+
+.submenu-link.active::after {
+  border-left-color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+/* ── Flyout submenu (collapsed sidebar + hover) ── */
+
+.submenu-flyout {
+  position: fixed;
+  z-index: 9999;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.12);
+  padding: 6px 0 8px;
+  animation: flyoutAnim 0.2s ease;
+}
+
+@keyframes flyoutAnim {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.submenu-flyout-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6a9ef7;
+  padding: 6px 14px;
+  border-bottom: 1px solid #f3f4f6;
+  margin-bottom: 4px;
+}
+
+.submenu-flyout-link {
+  display: block;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: #282829;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.submenu-flyout-link:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* Hide flyout by default — visibility controlled by React state */
+.submenu-flyout {
+  display: none;
+}
